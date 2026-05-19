@@ -139,6 +139,15 @@ resource "aws_iam_role" "dms_vpc_role" {
 # Subnet group
 ################################################################################
 
+data "aws_iam_role" "dms-vpc-role" {
+  name = "dms-vpc-role"
+}
+
+resource "aws_iam_role_policy_attachment" "dms-vpc-role-AmazonDMSVPCManagementRole" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonDMSVPCManagementRole"
+  role = data.aws_iam_role.dms-vpc-role.name
+}
+
 resource "aws_dms_replication_subnet_group" "this" {
   count = var.create && var.create_repl_subnet_group ? 1 : 0
 
@@ -148,7 +157,10 @@ resource "aws_dms_replication_subnet_group" "this" {
 
   tags = merge(var.tags, var.repl_subnet_group_tags)
 
-  depends_on = [time_sleep.wait_for_dependency_resources]
+  depends_on = [
+    time_sleep.wait_for_dependency_resources,
+    aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole,
+  ]
 }
 
 ################################################################################
