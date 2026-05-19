@@ -362,8 +362,14 @@ variable "access_target_dynamodb_table_arns" {
 # VPC IAM Role
 ################################################################################
 
-variable "vpc_iam_role_name" {
-  description = "Name to use on VPC IAM role created"
+# variable "vpc_iam_role_name" {
+#   description = "Name to use on VPC IAM role created"
+#   type        = string
+#   default     = null
+# }
+
+variable "iam_role_name_prefix" {
+  description = "Prefix to apply to names of all IAM roles created"
   type        = string
   default     = null
 }
