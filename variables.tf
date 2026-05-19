@@ -357,3 +357,14 @@ variable "access_target_dynamodb_table_arns" {
   type        = list(string)
   default     = []
 }
+
+################################################################################
+# VPC IAM Role
+################################################################################
+
+variable "vpc_iam_role_name" {
+  description = "Name to use on VPC IAM role created"
+  type        = string
+  default     = null
+}
+

@@ -108,7 +108,7 @@ resource "aws_iam_role" "dms_cloudwatch_logs_role" {
 resource "aws_iam_role" "dms_vpc_role" {
   count = var.create && var.create_iam_roles ? 1 : 0
 
-  name                  = "dms-vpc-role"
+  name                  = var.vpc_iam_role_name != null ? var.vpc_iam_role_name : "dms-vpc-role"
   description           = "DMS IAM role for VPC permissions"
   permissions_boundary  = var.iam_role_permissions_boundary
   assume_role_policy    = data.aws_iam_policy_document.dms_assume_role[0].json
