@@ -35,7 +35,8 @@ data "aws_iam_policy_document" "dms_assume_role" {
     condition {
       test     = "ArnLike"
       variable = "aws:SourceArn"
-      values   = ["arn:${local.partition}:dms:${local.region}:${local.account_id}:*"]
+      # values   = ["arn:${local.partition}:dms:${local.region}:${local.account_id}:*"]
+      values   = ["arn:${local.partition}:dms:*:${local.account_id}:*"]
     }
 
     condition {
@@ -542,7 +543,8 @@ data "aws_iam_policy_document" "access_assume" {
     condition {
       test     = "ArnLike"
       variable = "aws:SourceArn"
-      values   = ["arn:${local.partition}:dms:${local.region}:${local.account_id}:*"]
+      # values   = ["arn:${local.partition}:dms:${local.region}:${local.account_id}:*"]
+      values   = ["arn:${local.partition}:dms:*:${local.account_id}:*"]
     }
 
     condition {
